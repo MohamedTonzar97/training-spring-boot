@@ -6,11 +6,13 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
+        <module name="microcommerce (1)" />
         <module name="microcommerce" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="microcommerce" target="1.8" />
+      <module name="microcommerce (1)" target="1.8" />
     </bytecodeTargetLevel>
   </component>
 </project>
