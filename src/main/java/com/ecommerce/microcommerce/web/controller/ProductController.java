@@ -9,6 +9,7 @@ import com.fasterxml.jackson.databind.ser.impl.SimpleFilterProvider;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.json.MappingJacksonValue;
 import org.springframework.web.bind.annotation.*;
@@ -16,6 +17,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import javax.validation.Valid;
 import java.net.URI;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -61,7 +63,17 @@ public class ProductController {
         return produit;
     }
 
-
+    @GetMapping(value = "/AdminProduits",produces = MediaType.APPLICATION_JSON_VALUE)
+    public List<String> calculerMargeProduit(){
+        List<Product> produits = productDao.findAll();
+        List<String> s =new ArrayList<>();
+        double marge ;
+        for (Product prod : produits) {
+            marge = prod.getPrix()-prod.getPrixAchat();
+            s.add(prod +":"+ marge);
+        }
+        return s;
+    }
 
 
     //ajouter un produit
