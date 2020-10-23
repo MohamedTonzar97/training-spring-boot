@@ -9,6 +9,7 @@ import com.fasterxml.jackson.databind.ser.impl.SimpleFilterProvider;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.json.MappingJacksonValue;
@@ -75,6 +76,10 @@ public class ProductController {
         return s;
     }
 
+    @GetMapping(value = "/Tri")
+    public List<Product> trierProduitsParOrdreAlphabetique(){
+        return productDao.findAll(new Sort(Sort.Direction.ASC, "nom"));
+    }
 
     //ajouter un produit
     @PostMapping(value = "/Produits")
