@@ -82,6 +82,7 @@ public class ProductController {
         return productDao.findAll(new Sort(Sort.Direction.ASC, "nom"));
     }
 
+
     //ajouter un produit
     @PostMapping(value = "/Produits")
 

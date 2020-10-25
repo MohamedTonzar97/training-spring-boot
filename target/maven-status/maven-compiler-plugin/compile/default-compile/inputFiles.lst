@@ -1,6 +1,11 @@
 C:\Users\new\Desktop\Projet\Projet\training-spring-boot\src\main\java\com\ecommerce\microcommerce\web\exceptions\ProduitIntrouvableException.java
 C:\Users\new\Desktop\Projet\Projet\training-spring-boot\src\main\java\com\ecommerce\microcommerce\configuration\SwaggerConfig.java
+C:\Users\new\Desktop\Projet\Projet\training-spring-boot\src\main\java\com\ecommerce\microcommerce\web\security\SecurityConfiguration.java
+C:\Users\new\Desktop\Projet\Projet\training-spring-boot\src\main\java\com\ecommerce\microcommerce\model\Privilege.java
 C:\Users\new\Desktop\Projet\Projet\training-spring-boot\src\main\java\com\ecommerce\microcommerce\dao\ProductDao.java
+C:\Users\new\Desktop\Projet\Projet\training-spring-boot\src\main\java\com\ecommerce\microcommerce\model\Role.java
 C:\Users\new\Desktop\Projet\Projet\training-spring-boot\src\main\java\com\ecommerce\microcommerce\model\Product.java
+C:\Users\new\Desktop\Projet\Projet\training-spring-boot\src\main\java\com\ecommerce\microcommerce\web\exceptions\ProduitGratuitException.java
 C:\Users\new\Desktop\Projet\Projet\training-spring-boot\src\main\java\com\ecommerce\microcommerce\MicrocommerceApplication.java
+C:\Users\new\Desktop\Projet\Projet\training-spring-boot\src\main\java\com\ecommerce\microcommerce\model\User.java
 C:\Users\new\Desktop\Projet\Projet\training-spring-boot\src\main\java\com\ecommerce\microcommerce\web\controller\ProductController.java
