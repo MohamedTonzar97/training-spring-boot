@@ -1,3 +1,4 @@
+/*
 package com.ecommerce.microcommerce.web.security;
 
 
@@ -11,22 +12,17 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 
 @Configuration
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
-    PasswordEncoder passwordEncoder = passwordEncoder();
-
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.inMemoryAuthentication().withUser("user1").password(passwordEncoder.encode("123")).roles("USER");
-        auth.inMemoryAuthentication().withUser("user2").password(passwordEncoder.encode("123")).roles("USER");
-        auth.inMemoryAuthentication().withUser("admin").password(passwordEncoder.encode("123")).roles("ADMIN");
+        auth.inMemoryAuthentication().withUser("user1").password("{noop}123").roles("USER");
+        auth.inMemoryAuthentication().withUser("user2").password("{noop}123").roles("USER");
+        auth.inMemoryAuthentication().withUser("admin").password("{noop}123").roles("ADMIN");
     }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.formLogin();
-        http.authorizeRequests().anyRequest().authenticated();
+           http.formLogin();
+           http.authorizeRequests().anyRequest().authenticated();
     }
 
-    public PasswordEncoder passwordEncoder(){
-        return  new BCryptPasswordEncoder();
-    }
-}
+}*/

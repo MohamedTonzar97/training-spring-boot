@@ -33,7 +33,7 @@ public class ProductController {
 
 
     //Récupérer la liste des produits
-
+    @ApiOperation(value = "Produits", response = Product.class,tags="GetProducts")
     @RequestMapping(value = "/Produits", method = RequestMethod.GET)
 
     public MappingJacksonValue listeProduits() {
@@ -65,6 +65,7 @@ public class ProductController {
         return produit;
     }
 
+    @ApiOperation(value = "Calcule la marge d'un produit", response = Product.class)
     @GetMapping(value = "/AdminProduits",produces = MediaType.APPLICATION_JSON_VALUE)
     public List<String> calculerMargeProduit(){
         List<Product> produits = productDao.findAll();
@@ -77,13 +78,14 @@ public class ProductController {
         return s;
     }
 
+    @ApiOperation(value = "Tri les produits par ordre alphabetiques ", response = Product.class,tags="GetProducts")
     @GetMapping(value = "/Tri")
     public List<Product> trierProduitsParOrdreAlphabetique(){
         return productDao.findAll(new Sort(Sort.Direction.ASC, "nom"));
     }
 
 
-    //ajouter un produit
+    @ApiOperation(value = "Permet l'ajout d'un produits ", response = Product.class,tags="AddProduct")
     @PostMapping(value = "/Produits")
 
     public ResponseEntity<Void> ajouterProduit(@Valid @RequestBody Product product) {
@@ -102,13 +104,14 @@ public class ProductController {
 
         return ResponseEntity.created(location).build();
     }
-
+    @ApiOperation(value = "Supprimer un Produit", response = Product.class,tags="DeleteProduct")
     @DeleteMapping (value = "/Produits/{id}")
     public void supprimerProduit(@PathVariable int id) {
 
         productDao.delete(id);
     }
 
+    @ApiOperation(value = "Modification d'un Produit", response = Product.class,tags="EditProduct")
     @PutMapping (value = "/Produits")
     public void updateProduit(@RequestBody Product product) {
 
