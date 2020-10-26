@@ -1,67 +1,78 @@
 package com.ecommerce.microcommerce.model;
 
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
+import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 @Entity
-    public class User {
+@Table(name = "USER")
+public class User implements Serializable, UserDetails {
 
-        @Id
-        @GeneratedValue(strategy = GenerationType.AUTO)
-        private Long id;
-        @Column(nullable = false,length = 50)
-    private String firstName;
-    @Column(nullable = false,length = 50)
-    private String lastName;
-    @Column(nullable = false,length = 150)
-    private String email;
-    @Column(nullable = false,length = 50)
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer userId;
+
+    private String username;
+
     private String password;
-    @Column(nullable = true)
-    private String emailverificationToken;
-    @Column(nullable = true)
-    private String emailverificationStatus;
 
-    public String getEmailverificationToken() {
-        return emailverificationToken;
-    }
-
-    public void setEmailverificationToken(String emailverificationToken) {
-        this.emailverificationToken = emailverificationToken;
-    }
-
-    public String getEmailverificationStatus() {
-        return emailverificationStatus;
-    }
-
-    public void setEmailverificationStatus(String emailverificationStatus) {
-        this.emailverificationStatus = emailverificationStatus;
+    public String getRole() {
+        return role;
     }
 
 
-    public String getFirstName() {
-        return firstName;
+    public void setRole(String role) {
+        this.role = role;
     }
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
+    private String role ;
+    public Integer getUserId() {
+        return userId;
     }
 
-    public String getLastName() {
-        return lastName;
+    public void setUserId(Integer userId) {
+        this.userId = userId;
     }
 
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
+    public String getUsername() {
+        return username;
     }
 
-    public String getEmail() {
-        return email;
+    @Override
+    public boolean isAccountNonExpired() {
+        return false;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    @Override
+    public boolean isAccountNonLocked() {
+        return false;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return false;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return false;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        List<GrantedAuthority> list = new ArrayList<GrantedAuthority>();
+        list.add(new SimpleGrantedAuthority(this.getRole()));
+        return list;
     }
 
     public String getPassword() {
@@ -71,25 +82,4 @@ import java.util.Collection;
     public void setPassword(String password) {
         this.password = password;
     }
-
-    public boolean isEnabled() {
-        return enabled;
-    }
-
-    public void setEnabled(boolean enabled) {
-        this.enabled = enabled;
-    }
-
-
-        private boolean enabled;
-        private boolean tokenExpired;
-        @ManyToMany
-        @JoinTable(
-                name = "users_roles",
-                joinColumns = @JoinColumn(
-                        name = "user_id", referencedColumnName = "id"),
-                inverseJoinColumns = @JoinColumn(
-                        name = "role_id", referencedColumnName = "id"))
-        private Collection<Role> roles;
-    }
-
+}

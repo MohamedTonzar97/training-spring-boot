@@ -1,3 +1,4 @@
+/*
 package com.ecommerce.microcommerce.model;
 
 import javax.persistence.*;
@@ -26,4 +27,4 @@ public class Privilege {
 
     @ManyToMany(mappedBy = "privileges")
     private Collection<Role> roles;
-}
+}*/

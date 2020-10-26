@@ -1,3 +1,4 @@
+/*
 package com.ecommerce.microcommerce.model;
 
 import javax.persistence.*;
@@ -34,4 +35,4 @@ public class Role {
             inverseJoinColumns = @JoinColumn(
                     name = "privilege_id", referencedColumnName = "id"))
     private Collection<Privilege> privileges;
-}
+}*/

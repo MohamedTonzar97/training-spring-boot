@@ -2,6 +2,7 @@ package com.ecommerce.microcommerce.web.controller;
 
 import com.ecommerce.microcommerce.dao.ProductDao;
 import com.ecommerce.microcommerce.model.Product;
+import com.ecommerce.microcommerce.model.User;
 import com.ecommerce.microcommerce.web.exceptions.ProduitGratuitException;
 import com.ecommerce.microcommerce.web.exceptions.ProduitIntrouvableException;
 import com.fasterxml.jackson.databind.ser.FilterProvider;
@@ -11,9 +12,11 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.json.MappingJacksonValue;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -51,18 +54,41 @@ public class ProductController {
         return produitsFiltres;
     }
 
+//    @RequestMapping("/user")
+//        @GetMapping
+//        public ResponseEntity<User> getUser(){
+//
+//
+//
+//            return  new ResponseEntity<User>(user, HttpStatus.OK);
+//        }
+
 
     //Récupérer un produit par son Id
     @ApiOperation(value = "Récupère un produit grâce à son ID à condition que celui-ci soit en stock!")
     @GetMapping(value = "/Produits/{id}")
 
-    public Product afficherUnProduit(@PathVariable int id) {
-
+    public  MappingJacksonValue afficherUnProduit(@PathVariable int id) {
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         Product produit = productDao.findById(id);
 
         if(produit==null) throw new ProduitIntrouvableException("Le produit avec l'id " + id + " est INTROUVABLE. Écran Bleu si je pouvais.");
 
-        return produit;
+        MappingJacksonValue produitsFiltres = new MappingJacksonValue(produit);
+
+
+        if (user.getRole().equals("user")) {
+            FilterProvider listDeNosFiltres = new SimpleFilterProvider().addFilter("monFiltreDynamique", SimpleBeanPropertyFilter.serializeAllExcept("prixAchat","prix"));
+        produitsFiltres.setFilters(listDeNosFiltres);
+        return produitsFiltres;
+        }
+        else{
+            FilterProvider listDeNosFiltresAdmin = new SimpleFilterProvider().addFilter("monFiltreDynamique", SimpleBeanPropertyFilter.serializeAllExcept("prixAchat"));
+            produitsFiltres.setFilters(listDeNosFiltresAdmin);
+            return produitsFiltres;
+        }
+
+
     }
 
     @ApiOperation(value = "Calcule la marge d'un produit", response = Product.class)
