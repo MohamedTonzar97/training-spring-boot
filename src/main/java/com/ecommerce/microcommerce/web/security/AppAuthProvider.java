@@ -1,3 +1,4 @@
+/*
 package com.ecommerce.microcommerce.web.security;
 
 import org.apache.tomcat.util.net.openssl.ciphers.Authentication;
@@ -39,4 +40,4 @@ public class AppAuthProvider extends DaoAuthenticationProvider {
         return true;
 
     }
-}
+}*/

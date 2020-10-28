@@ -1,3 +1,4 @@
+/*
 package com.ecommerce.microcommerce.web.security;
 
 
@@ -32,12 +33,14 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Autowired
     private AccessDeniedHandler accessDeniedHandler;
-   /* @Override
+   */
+/* @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.inMemoryAuthentication().withUser("user1").password("{noop}123").roles("USER");
         auth.inMemoryAuthentication().withUser("user2").password("{noop}123").roles("USER");
         auth.inMemoryAuthentication().withUser("admin").password("{noop}123").roles("ADMIN");
-    }*/
+    }*//*
+
    @Override
    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
        auth.userDetailsService(userDetailsService);
@@ -66,7 +69,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers("/login").permitAll()
                 .antMatchers("/logout").permitAll()
                 .antMatchers("/user").authenticated()
-                .antMatchers("/AdminProduits").authenticated()
+                .antMatchers("/AdminProduits").hasAuthority("admin")
                 .anyRequest().permitAll();
     }
     private class AuthentificationLoginSuccessHandler extends SimpleUrlAuthenticationSuccessHandler {
@@ -92,4 +95,4 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         return provider;
     }
 
-}
+}*/

@@ -2,7 +2,7 @@ package com.ecommerce.microcommerce.web.controller;
 
 import com.ecommerce.microcommerce.dao.ProductDao;
 import com.ecommerce.microcommerce.model.Product;
-import com.ecommerce.microcommerce.model.User;
+//import com.ecommerce.microcommerce.model.User;
 import com.ecommerce.microcommerce.web.exceptions.ProduitGratuitException;
 import com.ecommerce.microcommerce.web.exceptions.ProduitIntrouvableException;
 import com.fasterxml.jackson.databind.ser.FilterProvider;
@@ -16,7 +16,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.json.MappingJacksonValue;
-import org.springframework.security.core.context.SecurityContextHolder;
+/*import org.springframework.security.core.context.SecurityContextHolder;*/
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -65,33 +65,33 @@ public class ProductController {
 
 
     //Récupérer un produit par son Id
-    @ApiOperation(value = "Récupère un produit grâce à son ID à condition que celui-ci soit en stock!")
+    @ApiOperation(value = "Récupère un produit grâce à son ID à condition que celui-ci soit en stock!", response = Product.class,tags="Product")
     @GetMapping(value = "/Produits/{id}")
 
     public  MappingJacksonValue afficherUnProduit(@PathVariable int id) {
-        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+       /* User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();*/
         Product produit = productDao.findById(id);
 
         if(produit==null) throw new ProduitIntrouvableException("Le produit avec l'id " + id + " est INTROUVABLE. Écran Bleu si je pouvais.");
 
         MappingJacksonValue produitsFiltres = new MappingJacksonValue(produit);
 
-
-        if (user.getRole().equals("user")) {
+       /* if (user.getRole().equals("user")) {
             FilterProvider listDeNosFiltres = new SimpleFilterProvider().addFilter("monFiltreDynamique", SimpleBeanPropertyFilter.serializeAllExcept("prixAchat","prix"));
-        produitsFiltres.setFilters(listDeNosFiltres);
-        return produitsFiltres;
+            produitsFiltres.setFilters(listDeNosFiltres);
+            return produitsFiltres;
         }
         else{
             FilterProvider listDeNosFiltresAdmin = new SimpleFilterProvider().addFilter("monFiltreDynamique", SimpleBeanPropertyFilter.serializeAllExcept("prixAchat"));
             produitsFiltres.setFilters(listDeNosFiltresAdmin);
+
+        */
             return produitsFiltres;
         }
 
 
-    }
 
-    @ApiOperation(value = "Calcule la marge d'un produit", response = Product.class)
+    @ApiOperation(value = "Calcule la marge d'un produit", response = Product.class,tags="Marge Product")
     @GetMapping(value = "/AdminProduits",produces = MediaType.APPLICATION_JSON_VALUE)
     public List<String> calculerMargeProduit(){
         List<Product> produits = productDao.findAll();
@@ -104,7 +104,7 @@ public class ProductController {
         return s;
     }
 
-    @ApiOperation(value = "Tri les produits par ordre alphabetiques ", response = Product.class,tags="GetProducts")
+    @ApiOperation(value = "Tri les produits par ordre alphabetiques ", response = Product.class,tags="TriProducts")
     @GetMapping(value = "/Tri")
     public List<Product> trierProduitsParOrdreAlphabetique(){
         return productDao.findAll(new Sort(Sort.Direction.ASC, "nom"));

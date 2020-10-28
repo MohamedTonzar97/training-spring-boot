@@ -1,3 +1,4 @@
+/*
 package com.ecommerce.microcommerce.web.security;
 
 import com.ecommerce.microcommerce.dao.UserRepository;
@@ -33,4 +34,4 @@ public class UserService implements UserDetailsService {
         return user;
     }
 
-}
+}*/
